@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+//a*x^2+b*x+c=0
+void main(){
+double a,b,c,drta,x1,x2;
+cout<<"a= b= c="<<endl;
+cin>>a;
+cin>>b;
+cin>>c;
+drta=b*b-4*a*c;
+//cout<<drta;
+if(drta>0){
+cout<<"Funcation has two different ans:"<<endl;
+x1=(-b+sqrt(drta))/(2*a);
+x2=(-b-sqrt(drta))/(2*a);
+cout<<"x1="<<x1<<endl;
+cout<<"x2="<<x2<<endl;
+}
+else if(drta==0){
+cout<<"Funcation has the same two ans"<<endl;
+x1=(-b)/(2*a);
+cout<<"x1=x2="<<x1<<endl;
+}
+else
+cout<<"Funcation has no ans"<<endl;
+}
