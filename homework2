@@ -1,111 +1,111 @@
 #include <iostream>
 using namespace std;
 
-bool arrsame(int* arr, int len, int num){
-int i;
-for (i=0;i<len;i++)
-if(arr[i]==num)
-break;
-return i !=len;
+bool arrsame(int* arr, int len, int num) {
+	int i;
+	for (i = 0; i < len; i++)
+		if (arr[i] == num)
+			break;
+	return i != len;
 }
 
 
 
-bool next_comb(int* comb,const int a,const int b){
-int i = b-1;
-const int e= a-b;
-do
-comb[i]++;
-while(comb[i]>e+1&&i--);
-if(comb[0]>e)
-return 0;
-while (++i<b)
-comb[i]=comb[i-1]+1;
-return 1;
+bool next_comb(int* comb, const int a, const int b) {
+	int i = b - 1;
+	const int e = a - b;
+	do
+		comb[i]++;
+	while (comb[i] > e + 1 && i--);
+	if (comb[0] > e)
+		return 0;
+	while (++i < b)
+		comb[i] = comb[i - 1] + 1;
+	return 1;
 }
 
 
-bool next_perm(int* perm,const int b,const int a){
-int i=b-1;
-do 
-perm[i]++;
-while(arrsame(perm,i,perm[i])) || (perm[i] >= a&& i--));
-if (perm[0]>=a)
-return 0;
-for(int num= 0,seat i+1;seat<b;num++)
-if(!arrsame(perm),i+1,num))
-perm[seat++]= num;
-return 1;
+bool next_perm(int* perm, const int b, const int a) {
+	int i = b - 1;
+	do
+		perm[i]++;
+	while (arrsame(perm, i, perm[i]) || (perm[i] >= a && i--));
+	if (perm[0] >= a)
+		return 0;
+	for (int num = 0, seat i + 1; seat < b; num++)
+		if (!arrsame(perm, i + 1, num))
+		perm[seat++] = num;
+	return 1;
 }
 
 
-int CalPerm(int a,int b){
-int* perm= new int[b];
-for (int i = 0;i<b;i++)
-perm[i]=i;
-cout <<"output CalPerm:"<<end1;
-do
-for(int i=0;i<b;cout<<((++i<b)? ','  :  '\n'))
-cout << perm[i]+1;
-while (next_perm(perm,b,a));
-delete[] perm;
-return 0;
+int CalPerm(int a, int b) {
+	int* perm = new int[b];
+	for (int i = 0; i < b; i++)
+		perm[i] = i;
+	cout << "output CalPerm:" << endl;
+	do
+		for (int i = 0; i < b; cout << (( ++i < b) ? ',' : '\n'))
+			cout << perm[i] + 1;
+	while (next_perm(perm, b, a));
+	delete[] perm;
+	return 0;
 }
 
-int CalComb(int a ,int b){
-int* comb= new int[b];
-cout<<"output CalComb"end1;
-do
-for(int i=0;i<b;cout<<((++i<b)? ','  :  '\n'))
-cout<< comb[i]+1;
-while (next_comb(comb,a,b));
-delete[] comb;
-return 0;
+int CalComb(int a, int b) {
+	int* comb = new int[b];
+	cout << "output CalComb"<<endl;
+	do
+		for (int i = 0; i < b; cout << ((++i < b) ? ',' : '\n'))
+			cout << comb[i] + 1;
+	while (next_comb(comb, a, b));
+	delete[] comb;
+	return 0;
 }
 
-int CheckNK(int a, int b){
-if (a<b || b<=0)
-throw"a or b is not satisfy perm or comb condition";
-return 0;
+int CheckNK(int a, int b) {
+	if (a < b || b <= 0)
+		throw"a or b is not satisfy perm or comb condition";
+	return 0;
 }
 
-int CheckTYPE(int type){
-if (type<0 || type>2)
-throw"u have input the wrong type";
-return 0;
+int CheckTYPE(int type) {
+	if (type < 0 || type>2)
+		throw"u have input the wrong type";
+	return 0;
 }
 
 
-int main(){
-int a,b,type;
-cout << "perm and comb calculate (a,b):" << end1;
-cin >> a >> b;
-try{
-CheckNK(a,b);
-}
-catch (const char* msg1){
-cerr<< msg1<< end1;
-return 0;
-}
+int main() {
+	int a, b, type;
+	cout << "perm and comb calculate (a,b):" << endl;
+	cin >> a >> b;
+	try {
+		CheckNK(a, b);
+	}
+	catch (const char* msg1) {
+		cerr << msg1 << endl;
+		return 0;
+	}
 
-cout<<"Input calculate type:0 :perm;1:comb;2:perm and comb:"<< end1;
-cin>> type;
+	cout << "Input calculate type:0 :perm;1:comb;2:perm and comb:" << endl;
+	cin >> type;
 
-try{
-CheckTYPE(type);
-}
-catch(const char* msg2){
-cerr<<msg2<<end1;
-return 0;
-if(0==type){
-CalPerm(a,b);
-}
-else if(1== type){
-CalComb(a,b);
-}
-else if (2=type){
-CalPerm(a,b);
-CalComb(a,b);
-}
-return0;
-}
+	try {
+		CheckTYPE(type);
+	}
+	catch (const char* msg2) {
+		cerr << msg2 << endl;
+		return 0;
+		if (0 == type) {
+			CalPerm(a, b);
+		}
+		else if (1 == type) {
+			CalComb(a, b);
+		}
+		else if (2 = type) {
+			CalPerm(a, b);
+			CalComb(a, b);
+		}
+		return0;
+	}
