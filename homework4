@@ -1,0 +1,116 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+
+/*¶¨ÒåÒ»¸ö½á¹¹Ìåperson £¬ÓÃÀ´´æ·ÅÐÕÃûºÍÄêÁäÊý¾Ý£»ÒòÎªÅÅÐòÊ±vectorÊý¾Ý»á·¢Éú±ä»¯£¬
+ÐÕÃûÓëÄêÁäµÄ¶ÔÓ¦¹ØÏµÒ²»á±ä£¬¶ø½á¹¹ÌåµÄÅÅÐòËäÈ»Ò²±ä£¬µ«½á¹¹ÌåµÄ±äÁ¿¶ÔÓ¦¹ØÏµ²»±ä¡£*/
+struct person{
+	string name;
+	double age;
+};
+// º¯ÊýcompÊÇºóÃæÓÃµ½µÄsort()ÅÅÐòº¯ÊýµÄÒ»¸ö²ÎÊýµÄÖØÐ´£¬ËüÊÇÒ»¸ö±ê×¼Ð´·¨£¬Ö÷ÒªÊÇÓÃÀ´Ö¸¶¨ÅÅÐòµÄ¶ÔÏóÓëÅÅÐòµÄ¹æÔò
+bool comp( person a, person b)
+{
+	return a.name<b.name;
+}
+
+/*×Ô¶¨Òåº¯Êýname_age£¬²ÎÊýÊÇvector<string>ÀàÐÍ£¨×Ö·û´®ÈÝÆ÷£©£¬½«ÐÕÃû×÷Îª²ÎÊý´«Èëº¯Êý
+*/
+
+vector<int> name_age(vector<string> &name)
+{
+	int k = name.size();             //ÓÃsize()º¯Êý»ñÈ¡nameÈÝÆ÷ÖÐµÄÊý¾Ý¸öÊý
+	vector<int> name_num(k);          //¶¨ÒåÒ»¸öintÀàÐÍµÄÈÝÆ÷£¬ÓÃÀ´´æ·ÅÃ¿¸ö×Ö·û´®µÄ³¤¶È£»
+	vector<double> age(k);           //¶¨ÒåÒ»¸ödoubleÀàÐÍµÄÈÝÆ÷£¬ÓÃÀ´´æ·ÅÄêÁä
+	int max_name = name[0].length();  //ÒÔµÚÒ»¸ö×Ö·û´®µÄ³¤¶È¸ø×î³¤×Ö·û´®ºÍ×î¶Ì×Ö·û´®¸³³õÖµ
+	int min_name = name[0].length();;
+
+	cout << "Please enter age behind of name" << endl;
+
+	//Ñ­»·±éÀúnameÈÝÆ÷£¬²¢Í¬Ê±¶ÔageÈÝÆ÷ÄêÁä¸³Öµ
+	for (int i = 0; i < k; i++)
+	{
+		cout << name[i]<<":";
+		cin >> age[i];		
+	}
+		
+	//±éÀúnameÈÝÆ÷²¢ÔÚÆÁÄ»ÉÏÏÔÊ¾ÐÕÃûºÍÄêÁä, ²¢È¡µÃÐÕÃû×Ö·û´®µÄ³¤¶È¸øname_numÈÝÆ÷,Í¬Ê±»ñµÃ×î³¤ºÍ×î¶Ì×Ö·ûÊý
+
+	cout <<endl << "Name and Age list:" << endl;
+	for (int i = 0; i < k; i++)
+	{
+		cout << name[i] << ":" << age[i] << endl;
+
+		name_num[i] = name[i].length();
+		if (max_name < name_num[i]) max_name = name_num[i];
+		if (min_name > name_num[i]) min_name = name_num[i];
+		
+	}
+	//²éÕÒ×î³¤ºÍ×î¶ÌµÄ×Ö·û´®
+	cout << endl<< "longest  string: " << endl;
+	for (int i = 0; i < k; i++)
+	{
+		if (name[i].length() == max_name)
+			cout << name[i] << endl;
+
+	}
+	cout << "shortest string: " << endl;
+	for (int i = 0; i < k; i++)
+	{
+		if (name[i].length() == min_name)
+			cout << name[i] << endl;
+
+	}
+	
+	
+	person a[5];             //ÓÃÇ°Ãæ¶¨ÒåµÄ½á¹¹ÌåÖ¸¶¨Ò»¸öÊý×é¶ÔÏó£¨°Ñ½á¹¹Ìå¿´³ÉÊÇÈçintµÄÒ»ÖÖÀàÐÍÀ´Ê¹ÓÃºÍÀí½â£©£¬
+	                    	// Ö¸¶¨µÄ¶ÔÏóa  ÊÇ°üº¬5×éÐÕÃûºÍÄêÁäµÄ½á¹¹ÌåÊý×é£¬
+	
+	//¸ø½á¹¹Ìåa ¸³Öµ,5×é £¬Ò»×éÓÐÐÕÃûÓëÄêÁäÁ½¸öÊý¾Ý
+	for (int i = 0; i < name.size(); i++)
+	{
+		a[i].name = name[i];
+		a[i].age = age[i];
+	}
+
+	cout << endl << "Sort the names , Name and Age list"<<endl;	
+
+
+	sort(a,a+5,comp);      //¶Ô½á¹¹Ìå½øÐÐÅÅÐò£¬ÆäÖÐcompÎªÖ®Ç°ÖØÐ´µÄº¯Êý£¬ÓÃÀ´Ö¸¶¨ÅÅÐòµÄ¹æÔò
+	
+	//ÒÀ´ÎÊä³öÅÅÐòºóµÄ½á¹¹ÌåÄÚµÄÊý¾Ý£»
+	for (int i = 0; i < 5; i++)
+	{
+		cout << a[i].name << ": " << a[i].age << endl;
+	}
+	cout <<endl<<"first string :" << a[0].name << endl;
+	cout << "last string :" << a[4].name << endl;
+	return name_num; //·µ»Ø×Ö·û´®³¤¶È£¬×¢ÒâÕâ¸öÊÇ¶Ôname ÈÝÆ÷µÄ£¬²»ÊÇ¶Ô½á¹¹ÌåµÄ
+}
+
+int main()
+{
+	//¶¨ÒåÒ»¸ö×Ö·û´®ÈÝÆ÷name,²¢³õÊ¼»¯5¸ö×Ö·û´®ÐÕÃû£»
+	int n=5;
+	vector <string> name(n);
+	name[0] = "Tomas";
+	name[1] = "Mary";
+	name[2] = "Rose";
+	name[3] = "Oscar";
+	name[4] = "Ailise";
+
+	//
+	vector<int> char_num(n);
+	char_num = name_age(name); //µ÷ÓÃ×Ô¶¨ÒåµÄname_age()º¯Êý
+	cout <<endl << "number of characters in each string" << endl;
+
+	for (int i = 0; i < n; i++)
+	{
+		cout<<name[i]<<"  number of characters : " << char_num[i]<<endl;
+	}
+	system("pause");
+	return 0;
+}
