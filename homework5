@@ -1,0 +1,30 @@
+#include "std_lib_facilities.h"
+struct Reading {
+	double num;
+};
+int main() {
+	vector<double>var;
+	double num;
+	try {
+		cout << "please enter the name of  the input file " << endl;
+		string iname;
+		cin >> iname;
+		ifstream file{ iname };
+		if (!file)
+			error("Do not found such file ");
+		while (file >> num) {
+			var.push_back(Reading{ num });
+		}
+	}
+
+	catch (exception& e) {
+		cout << e.what() << endl;
+		return 1;
+	}
+	double sum = 0;
+	for (int i = 0; i < var.size(); i++) {
+		sum += var[i];
+	}
+	cout << "sum=" << sum << endl;
+	return 0;
+}
