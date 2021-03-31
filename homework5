@@ -13,7 +13,7 @@ int main() {
 		if (!file)
 			error("Do not found such file ");
 		while (file >> num) {
-			var.push_back(Reading{ num });
+			var.push_back({ num });
 		}
 	}
 
