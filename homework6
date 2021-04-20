@@ -1,0 +1,147 @@
+#include "std_lib_facilities.h"
+
+void print_array(ostream& os, int* a, int x)
+{
+	for (int i = 0; i < x; i++)
+		os << a[i] << endl;
+}
+int main()
+{
+	int n = 10;
+	int* parr = new int[10];
+	cout << "array_10" << endl;
+	for (int k = 0; k < n; k++)
+	{
+		parr[k] = 100 + k;
+	}
+	ostream& os = cout;
+	print_array(os, parr, n);
+
+	delete[]parr;
+
+	int* array_11 = new int[11];
+	int n_1 = 11;
+	cout << "array_11" << endl;
+	for (int i = 0; i < n_1; i++)
+	{
+		array_11[i] = 100 + i;
+		cout << array_11[i] << endl;
+	}
+	delete[]array_11;
+	int* array_20 = new int[11];
+	int n_2 = 11;
+	cout << "array_20" << endl;
+	for (int i = 0; i < n_2; i++)
+	{
+		array_20[i] = 100 + i;
+		cout << array_20[i] << endl;
+	}
+
+	delete[]array_20;
+
+	cout << "vector_10" << endl;
+	vector<int>* v = new vector<int>[10];
+	int x = 10;
+	for (int i = 0; i < x; i++) {
+		v->push_back(i);
+		cout << v->at(i) << endl;
+	}
+	delete[]v;
+	cout << "vector_11" << endl;
+	vector<int>* v_11 = new vector<int>[11];
+	int x_1 = v_11->size();
+	for (int i = 0; i < x_1; i++) {
+		v_11->push_back(i);
+		cout << v_11->at(i) << endl;
+	}
+	delete[]v_11;
+	cout << "vector_20" << endl;
+	vector<int>* v_20 = new vector<int>[20];
+	int x_2 = v_20->size();
+	for (int i = 0; i < x_2; i++) {
+		v_20->push_back(i);
+		cout << v_20->at(i) << endl;
+	}
+	delete[]v_20;
+	system("PAUSE");
+	return 0;
+}
+
+
+
+
+
+#include "std_lib_facilities.h"
+
+int main()
+{
+	int x1 = 7;
+	int* p1 = new int;
+	*p1 = x1;
+	cout << "x1=" << x1 << ",adress of x1=" << &p1 << endl;
+	int array[7]{ 1,2,3,4,5,6,7 };
+	int* p2 = new int[7];
+	for (int i = 0; i < 7; i++)
+		p2[i] = array[i];
+	cout << "p2=" << *p2 << ",adress of array=" << &p2 << endl;
+	int* p3 = p2;
+	p2 = p1;
+	p2 = p3;
+	cout << "p1=" << *p1 << ",adress of p1=" << &p1 << endl;
+	cout << "p2=" << *p2 << ",adress of p2=" << &p2 << endl;
+	delete[]p2;//Delete this code if it crashes then run again
+	delete p1;//Delete this code if it crashes then run again
+	system("pause");
+	return 0;
+}
+
+
+
+
+
+
+
+
+#include "std_lib_facilities.h"
+
+int main()
+{
+
+	int array_1[10]{ 1,2,3,4,5,6,7,8,9,10 };
+	int* p1 = new int[10];
+	for (int i = 0; i < 10; i++)
+		p1[i] = array_1[i];
+	int* p2 = new int[10];
+	for (int i = 0; i < 10;i++) {
+		p2[i] = p1[i];
+		cout << p2[i] << endl;
+	}
+	cout << "p2=" << *p2 << ",adress of p2=" << &p2 << endl;
+	delete[]p1;//Delete this code if it crashes then run again
+	delete[]p2;//Delete this code if it crashes then run again
+system("pause");
+return 0;
+}
+
+
+
+
+
+
+#include "std_lib_facilities.h"
+int main() {
+	cout << "vector part" << endl;
+	vector<int>* p = new vector<int>[10];
+	for (int i = 0; i < 10; i++)
+		p->push_back(i);
+	vector<int>* q = new vector<int>[10];
+	int x = p->size();
+	for (int i = 0; i < x; i++) {
+		q->push_back(p->at(i));
+		cout << q->at(i) << endl;
+	}
+	delete[]p;
+	delete[]q;
+	system("pause");
+	return 0;
+}
