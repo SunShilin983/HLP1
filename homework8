@@ -1,0 +1,141 @@
+#include <iostream>
+
+#define DEAFAULT_CAPACITY 4 //默认初始容量
+
+using namespace std;
+
+template <typename T> class Vector;
+template<typename T>
+class Iterator
+{
+private:
+	Vector<T>* pvec; //迭代器的一种说法：对象的指针，即vector对象的指针
+	int index;   //因为遍历vector用下标就可以 
+
+public:
+	//这里构造一个迭代器，用一个对vector象的指针，和 vector对象的下标，下标可以确定要具体的那个
+	Iterator(Vector<T>* pv, int idx) :
+		pvec(pv), index(idx)
+	{}
+
+	//重载!= ++ -- *等等，因为迭代器的使用中要使用大量的运算符
+
+	bool operator!=(const Iterator left)
+	{
+		return index != left.index;
+	}
+	T& operator*()const
+	{
+		return (*pvec)[index]; //vec[0];
+	}
+	const Iterator operator++(int)
+	{
+		const Iterator tmp(*this);
+		index++;
+		return tmp;
+	}
+	const Iterator operator--(int)
+	{
+		const Iterator tmp(*this);
+		index--;
+		return tmp;
+	}
+	const Iterator operator-(int left)
+	{
+		return Iterator(pvec, index - left);
+	}
+	const Iterator operator+(int left)
+	{
+		return Iterator(pvec, index + left);
+	}
+
+};
+template<typename T>
+class Vector
+{
+private:
+	bool full()
+	{
+		return cursize == totalsize;
+	}
+	T* parr; //数组的指针
+	int cursize;//当前元素个数 ：也可以当做当前容器中最后一个元素的后一个元素下标，用于插入操作
+	int totalsize;//当前vector总大小  
+
+public:
+	typedef Iterator<T> iterator;
+	Vector()
+	{
+		parr = new T[2]();
+		cursize = 0;
+		totalsize = 2;
+	}
+	iterator begin()
+	{
+		return iterator(this, 0);
+	}
+	iterator end()
+	{
+		return iterator(this, cursize);
+	}
+	void push_back(T data)
+	{
+		insert(end(), data);
+	}
+	void insert(iterator _where, T data)
+	{
+		if (full())
+		{
+			resize();
+		}
+		for (iterator it = end(); it != _where; it--)
+		{
+			*it = *(it - 1);
+		}
+		*_where = data;
+		cursize++;
+	}
+	void earse(iterator _where)
+	{
+		iterator en = end()--;
+		for (iterator it = _where; it != en; it++)
+			*it = *(it + 1);
+		cursize--;
+	}
+
+	~Vector()
+	{
+		delete[] parr;
+		parr = NULL;
+	}
+	void resize()
+	{
+		T* pnewspace = new T[totalsize * 2];
+		memcpy(pnewspace, parr, sizeof(T)*totalsize);
+		delete[] parr;
+		parr = pnewspace;
+		totalsize *= 2;
+	}
+	//arr[0] = 10;
+	T& operator[](int index)
+	{
+		return parr[index];
+	}
+};
+int main()
+{
+	Vector<int>v;
+	v.push_back(2);
+	v.push_back(1);
+	v.push_back(3);
+	v.push_back(0);
+	int max = 0;
+	for (Vector<int>::iterator it = v.begin(); it != v.end(); it++)
+	{
+		if (*it > max)
+			max = *it;
+	}
+	cout << max;
+	return 0;
+}
+
